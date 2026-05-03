@@ -1,29 +1,73 @@
-# 📚 Jupyter Notebooks & Python Scripts Repository
+# GitHub Pattern MCP Server
 
-Welcome to the **Jupyter Notebooks & Python Scripts Repository**! This repository is dedicated to collecting and sharing interesting Jupyter notebooks and Python scripts that explore various topics in data science, machine learning, automation, and more.
+An MCP (Model Context Protocol) server that:
+- searches GitHub repositories for existing code implementations
+- suggests reusable code patterns from sampled implementations
 
-## 🚀 Purpose
+## Tools
 
-The primary purpose of this repository is to:
-- Provide a collection of useful Jupyter notebooks for data analysis and visualization.
-- Share Python scripts that automate tasks or demonstrate interesting algorithms.
-- Foster collaboration and learning within the programming community.
+1. `search_github_implementations`
+- Searches GitHub code and returns relevant implementation files.
+- Inputs: `problem` (required), `language` (optional), `perPage` (optional).
 
-## 📂 Contents
+2. `suggest_code_patterns`
+- Samples search results and extracts common implementation patterns.
+- Inputs: `problem` (required), `language` (optional), `perPage` (optional).
 
-This repository contains the following directories and files:
+## Requirements
 
-- **Notebooks/**: A collection of Jupyter notebooks.
-  - `pe-lecture.ipynb`: A sample notebook demonstrating [basics of prompt engineering].
-  
-- **Scripts/**: A collection of Python scripts.
-  - TBD
+- Node.js 20+
+- GitHub token recommended for higher API rate limits (`GITHUB_TOKEN`)
 
-## 🛠️ Getting Started
+## Setup
 
-To get started with this repository, follow these steps:
+```bash
+npm install
+npm run build
+```
 
-1. **Clone the Repository**:
-   ```bash
-   git clone https://github.com/kazhian/Prompt-Engineering.git
-   cd Prompt-Engineering
+## Run
+
+```bash
+npm start
+```
+
+For local development:
+
+```bash
+npm run dev
+```
+
+## Environment Variables
+
+Use `.env.example` as a template.
+
+- `GITHUB_TOKEN`: GitHub personal access token (recommended)
+- `GITHUB_PAT`: optional fallback variable name (if you use this naming convention)
+
+Create `.env` in the project root, for example:
+
+```env
+GITHUB_TOKEN=ghp_your_token_here
+```
+
+## Example MCP Client Configuration
+
+```json
+{
+  "mcpServers": {
+    "github-patterns": {
+      "command": "node",
+      "args": ["D:/Agentic-AI-Test/gitHubMcpServer/dist/index.js"],
+      "env": {
+        "GITHUB_TOKEN": "ghp_your_token_here"
+      }
+    }
+  }
+}
+```
+
+## Notes
+
+- Without `GITHUB_TOKEN`, GitHub API limits are lower and may affect reliability.
+- Pattern suggestions are heuristic and intended as implementation guidance, not static analysis guarantees.
